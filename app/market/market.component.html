@@ -1,0 +1,104 @@
+    <ActionBar class="action-bar">
+        <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+        <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+            ios.position="left">
+        </ActionItem>
+        <Label class="action-bar-title" [text]="watchService.baseCurrencyRatio | async"></Label>
+    </ActionBar>
+    <RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
+        <StackLayout tkDrawerContent>
+            <MyDrawer [selectedPage]="'markets'"></MyDrawer>
+        </StackLayout>
+            <GridLayout class="page page-content market" tkMainContent rows="auto, *" columns="auto">
+                <GridLayout class="market-main-tabs" rows="auto, auto" columns="*, *" row="0">
+                    <Button text="Trade" (tap)="selectMainTab(0)" class="btn btn-primary" [ngClass]="{open: isActive(0)}" col="0" row="1"></Button>
+                    <Button text="Open Orders" (tap)="selectMainTab(1)" class="btn btn-primary" [ngClass]="{'open': isActive(1)}" col="1" row="1"></Button>
+                </GridLayout>
+                <GridLayout #tabContent class="market-main-tabs-content" rows="*" columns="auto" row="1" *ngIf="market">
+                    <GridLayout [visible]="isActive(0)" class="market-main-tabs-content" rows="auto, auto, *, auto" columns="auto, auto" row="1">
+                            <GridLayout class="market-info" rows="auto, auto, auto, auto, auto" columns="auto, auto, *, auto, auto" row="0">
+                                    <StackLayout colSpan="4" row="0" orientation="horizontal">
+                                        <Label [text]="market.MarketName" class="market-name"></Label>
+                                        <Label [text]="' / $'+watchService.btcToDollar(market.Last)" class="dollar-price" horizontalAlignment="right"></Label>
+                                    </StackLayout>
+                                    <Label [text]="'Vol:'" col="0" row="1" class="high-label"></Label>
+                                    <Label [text]="market.BaseVolume" col="1" row="1"></Label>
+                                    <Label [text]="'Last:'" col="0" row="2" class="high-label"></Label>
+                                    <Label [text]="market.Last" col="1" row="2" [ngClass]="{'increments': lastPriceOffset, 'decrements': !lastPriceOffset}"></Label>
+                                    <Label [text]="'Spread:'" col="0" row="3" class="high-label"></Label>
+                                    <Label [text]="spread" col="1" row="3"></Label>
+                                    <Label [text]="'High:'" col="3" row="1" class="high-label"></Label>
+                                    <Label [text]="market.High" col="4" row="1"></Label>
+                                    <Label [text]="'Low:'" col="3" row="2" class="high-label"></Label>
+                                    <Label [text]="market.Low" col="4" row="2"></Label>
+                                    <Label *ngIf="marketBalance" [text]="'Balance:'" col="3" row="3" class="high-label"></Label>
+                                    <Label *ngIf="marketBalance" [text]="marketBalance" col="4" row="3"></Label>
+                                    <Label *ngIf="marketBalanceAvailable" [text]="'Available:'" col="3" row="4" class="high-label"></Label>
+                                    <Label *ngIf="marketBalanceAvailable" [text]="marketBalanceAvailable" col="4" row="4"></Label>
+                                </GridLayout>
+                                <GridLayout class="market-chart" rows="*" columns="*" row="1">
+                                    <Ohlcv [ticker]="market.symbol" *ngIf="market.symbol" backgroundColor="green"></Ohlcv>
+                                </GridLayout>
+                                <GridLayout *ngIf="isBuyTabActive" class="market-trade buy" rows="*, auto, auto, auto, auto, auto" columns="*, auto" row="2" >
+                                    <Label [text]="'Balance Available'" col="0" row="1"></Label>
+                                    <Label *ngIf="watchService.balances" [text]="watchService.balances['BTC'].BalanceWithCurrency" col="0" row="2" class="balance-label"></Label>
+                                    <TextField col="0" hint="Price (BTC)" [(ngModel)]="rate" row="3" class="filter-text-field"
+                                    autocorrect="false" autocapitalizationType="none"></TextField>
+                                    <TextField col="0" hint="Amount" [(ngModel)]="quantity" (ngModelChange)="onChange($event)" row="4" class="filter-text-field"
+                                    autocorrect="false" autocapitalizationType="none"></TextField>
+
+                                    <Button text="Bid Price" (tap)="populatePrice()" class="btn btn-primary ylw" col="1" row="3" borderRadius="2"></Button>
+                                    <Button text="Max" (tap)="getMax()" class="btn btn-primary ylw" col="1" row="4" borderRadius="2"></Button>
+                                    <Button text="Buy" *ngIf="true" (tap)="proceedTransaction()" class="btn buy-button" borderRadius="2" colspan="2" row="5"></Button>
+                                </GridLayout>
+                                <GridLayout *ngIf="!isBuyTabActive" class="market-trade sell" rows="*, auto, auto, auto, auto, auto" columns="*, auto" row="2">
+                                        <Label [text]="'Balance Available'" col="0" row="1"></Label>
+                                        <Label *ngIf="watchService.balances" [text]="watchService.balances['BTC'].BalanceWithCurrency" col="0" row="2" class="balance-label"></Label>
+                                        <TextField col="0" hint="Price (BTC)" [(ngModel)]="rateSell" row="3" class="filter-text-field"
+                                        autocorrect="false" autocapitalizationType="none"></TextField>
+                                        <TextField col="0" hint="Amount" [(ngModel)]="quantitySell" (ngModelChange)="onChange($event)" row="4" class="filter-text-field"
+                                        autocorrect="false" autocapitalizationType="none"></TextField>
+    
+                                        <Button text="Ask Price" (tap)="populatePriceAsk()" class="btn btn-primary ylw" col="1" row="3" borderRadius="2"></Button>
+                                        <Button text="Sell" (tap)="proceedTransaction()" class="btn btn-primary sell-button" colSpan="2" row="5" borderRadius="2"></Button>
+                                </GridLayout>
+                                    <GridLayout class="market-tabs" rows="auto" columns="*, *" row="3">
+                                        <Button text="BUY" (tap)="selectBuySellTab(true)" class="trade-btn buy" [ngClass]="{open: isBuyTabActive}" col="0" row="1"></Button>
+                                        <Button text="Sell" (tap)="selectBuySellTab(false)" class="trade-btn sell" [ngClass]="{open: !isBuyTabActive}" col="1" row="1"></Button>
+                                    </GridLayout>
+                                </GridLayout>
+                                <GridLayout *ngIf="isActive(1)" class="market-main-tabs-content" rows="auto, auto" columns="auto" row="2">
+                                        <GridLayout class="open-orders-header" columns="*,*,*,*">
+                                            <Label [text]="'Market'" col="0"></Label>
+                                            <Label [text]="'Remains'" col="1"></Label>
+                                            <Label [text]="'Price Limit'" col="2"></Label>
+                                            <Label [text]="'Cancel'" col="3"></Label>
+                                        </GridLayout>
+                                        <ListView [items]="watchService.openOrdersSubject | async" row="1" separatorColor="transparent" class="open-orders" (itemTap)="cancelOrder($event.index)">
+                                            <ng-template let-item="item" let-i="index">
+                                                <GridLayout class="orders-item" rows="auto" columns="*, *, *, *">
+                                                        <StackLayout col="0" row="0" class="item" [ngClass]="{'sell-order': item.side === 'sell', 'buy-order': item.side === 'buy'}">
+                                                            <GridLayout rows="*" columns="auto, auto">
+                                                                <Label [text]="item.Exchange" row="0" colSpan="2"></Label>
+                                                            </GridLayout>
+                                                        </StackLayout>
+                                                        <StackLayout col="1" row="0" class="item" [ngClass]="{'sell-order': item.side === 'sell', 'buy-order': item.side === 'buy'}">
+                                                            <Label [text]="item.QuantityRemaining"></Label>
+                                                        </StackLayout>
+                                                        <StackLayout col="2" row="0" class="item" [ngClass]="{'sell-order': item.side === 'sell', 'buy-order': item.side === 'buy'}">
+                                                            <Label [text]="item.Limit" class="market-price"></Label>
+                                                        </StackLayout>
+                                                        <StackLayout col="3" row="0" class="item" [ngClass]="{'sell-order': item.side === 'sell', 'buy-order': item.side === 'buy'}">
+                                                            <GridLayout>
+                                                                <StackLayout>
+                                                                    <Image src="res://delete" class="delete-container"></Image>
+                                                                </StackLayout>
+                                                            </GridLayout>
+                                                        </StackLayout>
+                                                </GridLayout>
+                                            </ng-template>
+                                        </ListView>
+                                </GridLayout>
+                        </GridLayout>
+                    </GridLayout>
+            </RadSideDrawer>

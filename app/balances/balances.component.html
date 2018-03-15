@@ -1,0 +1,46 @@
+<ActionBar class="action-bar">
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Balances"></Label>
+</ActionBar>
+
+<RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
+    <StackLayout tkDrawerContent>
+        <MyDrawer [selectedPage]="'Balances'"></MyDrawer>
+    </StackLayout>
+
+    <GridLayout class="page page-content markets balances" tkMainContent>
+        <StackLayout orientation="vertical">
+            <GridLayout class="list-group-item markets-header" rows="auto" columns="*, *, *">
+                <StackLayout col="0" row="0" class="markets-column name" orientation="horizontal">
+                    <Label [text]="'Market'" col="0"></Label>
+                </StackLayout>
+                <StackLayout class="markets-column price" col="1" row="0" orientation="horizontal">
+                    <Label [text]="'Used'"></Label>
+                </StackLayout>
+                <StackLayout class="markets-column change" col="2" row="0" orientation="horizontal" >
+                    <Label [text]="'Available'" col="0"></Label>
+                </StackLayout>
+            </GridLayout>
+            <ListView *ngIf="balances.length > 0" [items]="balances" separatorColor="transparent" class="balances-list-view">
+                <ng-template let-item="item" let-i="index" let-third="third" let-header="header" let-footer="footer">
+                    <GridLayout class="markets-item" [class.third]="third" [class.header]="header" [class.footer]="footer" rows="auto" columns="auto, auto, *" borderBottomColor="black">
+                        <StackLayout col="0" row="0" class="item name" style="width: 20%;">
+                            <GridLayout rows="*, *" columns="auto, auto">
+                                <Label [text]="item.symbol" class="market-name" row="0" col="0"></Label>
+                            </GridLayout>
+                        </StackLayout>
+                        <StackLayout col="1" row="0" class="item price">
+                            <Label [text]="item.used" class="market-price"></Label>
+                        </StackLayout>
+                        <StackLayout col="2" row="0" class="item change">
+                            <Label [text]="item.free" class="market-price"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+    </GridLayout>
+</RadSideDrawer>

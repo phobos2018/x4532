@@ -1,0 +1,32 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const core_1 = require("@angular/core");
+const platform_1 = require("platform");
+const platform_providers_1 = require("nativescript-angular/platform-providers");
+let TKIfAndroidDirective = class TKIfAndroidDirective {
+    constructor(device, container, templateRef) {
+        if (device.os === platform_1.platformNames.android) {
+            container.createEmbeddedView(templateRef);
+        }
+    }
+};
+TKIfAndroidDirective = __decorate([
+    core_1.Directive({ selector: "[tkIfAndroid]" }),
+    __param(0, core_1.Inject(platform_providers_1.DEVICE)),
+    __metadata("design:paramtypes", [Object, core_1.ViewContainerRef, core_1.TemplateRef])
+], TKIfAndroidDirective);
+exports.TKIfAndroidDirective = TKIfAndroidDirective;
+let TKIfIOSDirective = class TKIfIOSDirective {
+    constructor(device, container, templateRef) {
+        if (device.os === platform_1.platformNames.ios) {
+            container.createEmbeddedView(templateRef);
+        }
+    }
+};
+TKIfIOSDirective = __decorate([
+    core_1.Directive({ selector: "[tkIfIOS]" }),
+    __param(0, core_1.Inject(platform_providers_1.DEVICE)),
+    __metadata("design:paramtypes", [Object, core_1.ViewContainerRef, core_1.TemplateRef])
+], TKIfIOSDirective);
+exports.TKIfIOSDirective = TKIfIOSDirective;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicGxhdGZvcm0uZGlyZWN0aXZlcy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbInBsYXRmb3JtLmRpcmVjdGl2ZXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSx3Q0FBaUY7QUFDakYsdUNBQWlEO0FBQ2pELGdGQUFpRTtBQUdqRSxJQUFhLG9CQUFvQixHQUFqQztJQUNJLFlBQTZCLE1BQWMsRUFBRSxTQUEyQixFQUFFLFdBQWdDO1FBQ3RHLEVBQUUsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxFQUFFLEtBQUssd0JBQWEsQ0FBQyxPQUFPLENBQUMsQ0FBQyxDQUFDO1lBQ3RDLFNBQVMsQ0FBQyxrQkFBa0IsQ0FBQyxXQUFXLENBQUMsQ0FBQztRQUM5QyxDQUFDO0lBQ0wsQ0FBQztDQUNKLENBQUE7QUFOWSxvQkFBb0I7SUFEaEMsZ0JBQVMsQ0FBQyxFQUFFLFFBQVEsRUFBRSxlQUFlLEVBQUUsQ0FBQztJQUV2QixXQUFBLGFBQU0sQ0FBQywyQkFBTSxDQUFDLENBQUE7NkNBQTRCLHVCQUFnQixFQUFlLGtCQUFXO0dBRHpGLG9CQUFvQixDQU1oQztBQU5ZLG9EQUFvQjtBQVNqQyxJQUFhLGdCQUFnQixHQUE3QjtJQUNJLFlBQTZCLE1BQWMsRUFBRSxTQUEyQixFQUFFLFdBQWdDO1FBQ3RHLEVBQUUsQ0FBQyxDQUFDLE1BQU0sQ0FBQyxFQUFFLEtBQUssd0JBQWEsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDO1lBQ2xDLFNBQVMsQ0FBQyxrQkFBa0IsQ0FBQyxXQUFXLENBQUMsQ0FBQztRQUM5QyxDQUFDO0lBQ0wsQ0FBQztDQUNKLENBQUE7QUFOWSxnQkFBZ0I7SUFENUIsZ0JBQVMsQ0FBQyxFQUFFLFFBQVEsRUFBRSxXQUFXLEVBQUUsQ0FBQztJQUVuQixXQUFBLGFBQU0sQ0FBQywyQkFBTSxDQUFDLENBQUE7NkNBQTRCLHVCQUFnQixFQUFlLGtCQUFXO0dBRHpGLGdCQUFnQixDQU01QjtBQU5ZLDRDQUFnQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IERpcmVjdGl2ZSwgVmlld0NvbnRhaW5lclJlZiwgVGVtcGxhdGVSZWYsIEluamVjdCB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgRGV2aWNlLCBwbGF0Zm9ybU5hbWVzIH0gZnJvbSBcInBsYXRmb3JtXCI7XG5pbXBvcnQgeyBERVZJQ0UgfSBmcm9tIFwibmF0aXZlc2NyaXB0LWFuZ3VsYXIvcGxhdGZvcm0tcHJvdmlkZXJzXCI7XG5cbkBEaXJlY3RpdmUoeyBzZWxlY3RvcjogXCJbdGtJZkFuZHJvaWRdXCIgfSlcbmV4cG9ydCBjbGFzcyBUS0lmQW5kcm9pZERpcmVjdGl2ZSB7XG4gICAgY29uc3RydWN0b3IoIEBJbmplY3QoREVWSUNFKSBkZXZpY2U6IERldmljZSwgY29udGFpbmVyOiBWaWV3Q29udGFpbmVyUmVmLCB0ZW1wbGF0ZVJlZjogVGVtcGxhdGVSZWY8T2JqZWN0Pikge1xuICAgICAgICBpZiAoZGV2aWNlLm9zID09PSBwbGF0Zm9ybU5hbWVzLmFuZHJvaWQpIHtcbiAgICAgICAgICAgIGNvbnRhaW5lci5jcmVhdGVFbWJlZGRlZFZpZXcodGVtcGxhdGVSZWYpO1xuICAgICAgICB9XG4gICAgfVxufVxuXG5ARGlyZWN0aXZlKHsgc2VsZWN0b3I6IFwiW3RrSWZJT1NdXCIgfSlcbmV4cG9ydCBjbGFzcyBUS0lmSU9TRGlyZWN0aXZlIHtcbiAgICBjb25zdHJ1Y3RvciggQEluamVjdChERVZJQ0UpIGRldmljZTogRGV2aWNlLCBjb250YWluZXI6IFZpZXdDb250YWluZXJSZWYsIHRlbXBsYXRlUmVmOiBUZW1wbGF0ZVJlZjxPYmplY3Q+KSB7XG4gICAgICAgIGlmIChkZXZpY2Uub3MgPT09IHBsYXRmb3JtTmFtZXMuaW9zKSB7XG4gICAgICAgICAgICBjb250YWluZXIuY3JlYXRlRW1iZWRkZWRWaWV3KHRlbXBsYXRlUmVmKTtcbiAgICAgICAgfVxuICAgIH1cbn0iXX0=

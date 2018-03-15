@@ -1,0 +1,58 @@
+<ActionBar class="action-bar">
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <StackLayout class="page-header">
+        <Label class="action-bar-title" [text]="watchService.baseCurrencyRatio | async"></Label>
+    </StackLayout>
+</ActionBar>
+<RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
+    <StackLayout tkDrawerContent>
+        <MyDrawer [selectedPage]="'markets'"></MyDrawer>
+    </StackLayout>
+    <GridLayout class="page page-content markets" tkMainContent>
+        <StackLayout orientation="vertical" class="filter-stack-layout">
+            <StackLayout orientation="horizontal" class="filter-stack-layout">
+                <TextField #filterMarketsTextField class="filter-text-field" (textChange)="onFilterChange($event)"
+                    autocorrect="false" autocapitalizationType="none"></TextField>
+                <Button [text]="searchIco" class="fa" (tap)="onSearchFocusTap()"></Button>
+            </StackLayout>
+            <GridLayout class="list-group-item markets-header" rows="auto" columns="*, *, *">
+                <StackLayout col="0" row="0" class="markets-column name" (tap)="sortBy('BaseVolume')" orientation="horizontal">
+                    <Label [text]="'Name / Vol'" col="0"></Label>
+                    <Label *ngIf="sortDirectionIco.BaseVolume" [text]="sortDirectionIco.BaseVolume" col="1" class="icon sort"></Label>
+                </StackLayout>
+                <StackLayout class="markets-column price" col="1" row="0" orientation="horizontal">
+                    <Label [text]="'Last Price'"></Label>
+                </StackLayout>
+                <StackLayout class="markets-column change" col="2" row="0" (tap)="sortBy('PrevDay')" orientation="horizontal" >
+                    <Label [text]="'24h Chg%'" col="0"></Label>
+                    <Label *ngIf="sortDirectionIco.PrevDay" [text]="sortDirectionIco.PrevDay" col="1" class="icon sort"></Label>
+                </StackLayout>
+            </GridLayout>
+            <ListView [items]="markets" (itemTap)="onItemTap($event)" separatorColor="transparent">
+                <ng-template let-item="item" let-i="index" let-third="third" let-header="header" let-footer="footer">
+                    <GridLayout class="markets-item" [class.third]="third" [class.header]="header" [class.footer]="footer" rows="auto" columns="auto, auto, *" borderBottomColor="black">
+                            <StackLayout col="0" row="0" class="item name">
+                                <GridLayout rows="*, *" columns="auto, auto">
+                                    <Label [text]="item.MarketName" class="market-name" row="0" col="0"></Label>
+                                    <Label [text]="' / ' + item.Pair" class="market-pair" row="0" col="1"></Label>
+                                    <Label [text]="'Vol ' + item.BaseVolume" class="volume" row="1" colSpan="2"></Label>
+                                </GridLayout>
+                            </StackLayout>
+                            <StackLayout col="1" row="0" class="item price">
+                                <Label [text]="item.Last" class="market-price" [ngClass]="{'increments': item.lastPriceOffset < 0, 'decrements': item.lastPriceOffset > 0, 'statusquo': item.lastPriceOffset == 0}"></Label>
+                                <Label [text]="'$ ' + item.DollarPrice" class="market-price-dollar"></Label>
+                            </StackLayout>
+                            <StackLayout col="2" row="0" class="item change">
+                                <StackLayout verticalAlignment="center" horizontalAlignment="center" [ngClass]="{'rise': item.PrevDay > 0, 'fall': item.PrevDay < 0, 'change': true}">
+                                    <Button text="{{item.PrevDayPercent}}" class="percent" [ngClass]="{'rise': item.PrevDay > 0, 'fall': item.PrevDay < 0}" verticalAlignment="center"></Button>
+                                </StackLayout>
+                            </StackLayout>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+    </GridLayout>
+</RadSideDrawer>

@@ -1,0 +1,87 @@
+<ActionBar class="action-bar">
+    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()"
+        ios.position="left">
+    </ActionItem>
+    <Label class="action-bar-title" text="Orders History"></Label>
+</ActionBar>
+
+<RadSideDrawer #drawer showOverNavigation="true" [drawerTransition]="sideDrawerTransition">
+    <StackLayout tkDrawerContent>
+        <MyDrawer [selectedPage]="'Orders'"></MyDrawer>
+    </StackLayout>
+
+    <GridLayout class="page page-content order-history" tkMainContent>
+        <StackLayout orientation="vertical">
+            <StackLayout class="orders-header">
+                <GridLayout
+                columns="auto, *, *, *, auto"
+                class="container-header" row="0">
+                    <StackLayout
+                        col="0"
+                        orientation="horizontal">
+                            <Label [text]="'Exchange'"></Label>
+                    </StackLayout>
+                    <StackLayout
+                        col="1"
+                        orientation="horizontal">
+                            <Label [text]="'Quantity'"></Label>
+                    </StackLayout>
+                    <StackLayout
+                        col="2"
+                        orientation="horizontal">
+                            <Label [text]="'Time'"></Label>
+                    </StackLayout>
+                    <StackLayout
+                        col="3"
+                        orientation="horizontal">
+                            <Label [text]="'Price'"></Label>
+                    </StackLayout>
+                    <StackLayout
+                        col="4"
+                        orientation="horizontal"
+                        class="type">
+                            <Label [text]="'Type'"></Label>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+            <ListView *ngIf="orders" [items]="orders" class="orders-list-group" separatorColor="transparent">
+                <ng-template  let-item="item" let-i="index" let-buy="item.side === 'buy'" let-sell="item.side === 'sell'">
+                    <GridLayout columns="auto, *, *, *, auto" class="container">
+                        <StackLayout
+                            col="0"
+                            orientation="horizontal"
+                            class="market-col">
+                                <Label col="1" [text]="item.symbol"></Label>
+                        </StackLayout>
+                        <StackLayout
+                            col="1"
+                            orientation="horizontal"
+                            class="amount-col">
+                                <Label [text]="item.remaining + '/' + item.amount" col="0"></Label>
+                        </StackLayout>
+                        <StackLayout
+                            col="2"
+                            orientation="horizontal"
+                            class="time-col">
+                                <Label col="1" [text]="item.Time"></Label>
+                        </StackLayout>
+                        <StackLayout
+                            col="3"
+                            orientation="horizontal"
+                            class="price-col">
+                                <Label [class.sell]="sell" [class.buy]="buy" [text]="item.price" col="0"></Label>
+                        </StackLayout>
+                        <GridLayout
+                            col="4"
+                            [class.sell]="sell" [class.buy]="buy">
+                                <StackLayout>
+                                    <Image *ngIf="item.status === 'closed'" src="res://checked_white"></Image>
+                                </StackLayout>
+                        </GridLayout>
+                </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+    </GridLayout>
+</RadSideDrawer>

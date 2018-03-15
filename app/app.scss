@@ -1,0 +1,418 @@
+// Import the theme’s variables. If you’re using a color scheme
+// other than “light”, switch the path to the alternative scheme,
+// for example '~nativescript-theme-core/scss/dark'.
+@import '~nativescript-theme-core/scss/light';
+
+// Start custom common variables
+@import 'app-variables';
+// End custom common variables
+
+// Customize any of the theme’s variables here, for instance $btn-color: red;
+// https://github.com/NativeScript/theme/blob/master/app/scss/_variables.scss
+
+// Import the theme’s main ruleset.
+@import '~nativescript-theme-core/scss/index';
+
+// Import the platform specific ruleset.
+@import url('~/platform.css');
+
+.fa {
+   font-family: "FontAwesome";
+}
+.icon {
+    font-family: 'icomoon';
+    font-size: 48;
+ }
+// Common page class
+.page-content {
+    background-color: #444;
+    .page-placeholder {
+        color: $page-icon-color;
+        font-size: $page-content-placeholder-font-size;
+        vertical-align: center;
+    }
+
+    .page-icon {
+        font-size: 72;
+        vertical-align: top;
+        horizontal-align: center;
+        color: $page-icon-color;
+        margin-top: 20%;
+    }
+}
+.page-header {
+    width: 100%;
+}
+// Home Page
+.black-lay {
+    background-color: black;
+    width: 100%;
+    padding: 10px;
+    color: #fff;
+    label {
+        &:nth-child(2) {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        &:nth-child(1) {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+}
+.white-lay {
+    background-color: #eee;
+    width: 100%;
+    padding: 10px;
+}
+
+.order-history {
+    background-color: #333;
+    color: #fff;
+    .orders-header {
+        height: 60px;
+        padding: 3px;
+        font-weight: bold;
+        background-color: #555;
+            color: #fff;
+    }
+    .orders-list-group {
+        background-color: #333;
+        color: #fff;
+        .container {
+            padding: 10px 3px;
+            border-bottom-width: 1;
+        }
+        .container-header {
+            background-color: #555;
+            color: #fff;
+            width: 100%;
+        }
+    }
+}
+.balances {
+    background-color: #333;
+    .balances-list-view {
+        height: 100%;
+        background-color: #333;
+    }
+}
+/* Market summaries page */
+.markets {
+    .markets-header {
+        width: 100%;
+        padding: 10px 0;
+        background-color: #333;
+        .markets-column {
+            &.name {
+                width: 30%;
+            }
+            &.price {
+                width: 40%;
+                label {
+                    text-align: left;
+                    width: 100%;
+                }
+            }
+            &.change {
+                label {
+                    text-align: center;
+                    padding: 6px 5px;
+                    width: 100%;
+                }
+            }
+            label {
+                font-size: 11px;
+                font-weight: bold;
+                padding: 12px 5px;
+                color: #777;
+            }
+        }
+    }
+    .markets-item, .orders-item {
+        background-color: #444;
+        color: #fff;
+        border-bottom-width: 1;
+
+        .item {
+            padding: 16px 10px;
+            font-size: 14px;
+            &.name {
+                width: 30%;
+            }
+            &.price {
+                width: 40%;
+            }
+            &.change {
+                padding: 20px 10px;
+            }
+            .market-price-dollar {
+                color: #eee;
+                font-size: 11px;
+            }
+            .market-name {
+                color: #fff;
+                font-weight: bold;
+            }
+            .market-price {
+                font-weight: bold;
+                font-size: 16px;
+            }
+            .percent {
+                width: 180px;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: center;
+            }
+        }
+        .volume {
+            font-size: 12px;
+            color: #ccc;
+        }
+        .fall {
+            background-color: #ea0070;
+            color: #fff;
+            
+        }
+        .rise {
+            background-color: #70a800;
+            color: #fff;
+        }
+    }
+}
+
+.market-confirmation-modal {
+    padding: 10px;
+    label {
+        padding: 20px;
+        font-size: 16px;
+        margin: 7px;
+    }
+    .confirmation-text-field {
+        background-color: #666;
+        margin: 20px;
+        padding: 5px
+    }
+}
+
+/* Order History Page */
+.orders-header {
+    width: 100%;
+    label {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+.buy-button {
+    background-color: #70a800;
+    color: #fff;
+    padding: 5px;
+    width: 100%;
+}
+.sell-button {
+    background-color: #ea0070;
+    color: #fff;
+    padding: 5px;
+    width: 100%;
+}
+
+.orders-list-group {
+    width: 100%;
+    .sell {
+        color: #ea0070;
+    }
+    .buy {
+        color: #70a800;
+    }
+    * {
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 3px;
+        font-size: 12px;
+    }
+    .market-col {
+        width: 21%;
+    }
+    .amount-col {
+        width: 15%;
+        label {
+            margin: 6px;
+        }
+    }
+    .time-col {
+        width: 25%;
+    }
+    .price-col {
+        width: 25%;
+    }
+}
+
+.increments {
+    color: greenyellow;
+}
+.decrements {
+    color: #ea0070;
+}
+.statusquo {
+    color: #ccc;
+}
+
+/* Market page */
+.market {
+    .ylw {
+        background-color: #f3ba2e;
+        font-size: 12px;
+        color: #333;
+        margin: 0;
+        margin-left: 30px;
+    }
+    .open {
+        background-color: #333;
+    }
+    .dollar-price {
+        font-size: 14px;
+        color: #ccc;
+    }
+    .market-main-tabs {
+        width: 100%;
+        color: #fff;
+        background-color: #333;
+        Button {
+            margin: 1px;
+            padding: 14px;
+            background-color: #f3ba2e;
+            font-size: 18px;
+        }
+        .open {
+            background-color: #333;
+        }
+    }
+    .market-main-tabs-content {
+        width: 100%;
+        background-color: #333;
+        .open-orders-header {
+            width: 100%;
+            background-color: #555;
+            font-size: 13px;
+            color: #fff;
+            padding: 10px;
+        }
+        .orders-item {
+            .item {
+                padding: 10px;
+                color: #333;
+                .delete-container {
+                    height: 30px;
+                }
+            }
+            .sell-order {
+                background-color: #d4b0c1;
+            }
+            .buy-order {
+                background-color: #d0dfb4;
+            }
+        }
+        .open-orders {
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            font-size: 12px;
+            .orders-item {
+                border-bottom-width: 1;
+            }
+        }
+    }
+    .market-info {
+        width: 100%;
+        padding: 25px;
+        background-color: #333;
+        color: #fff;
+        font-size: 14px;
+        .market-name {
+            font-size: 16px;
+            font-weight: bold;
+            padding-bottom: 5px;
+        }
+        .high-label {
+            text-align: right;
+            padding-right: 5px;
+        }
+    }
+    .market-chart {
+        width: 100%;
+        height: 460px;
+        padding: 0px;
+        label {
+            color: white;
+        }
+        background-color: #333;
+        color: #fff;
+    }
+
+    .market-trade {
+        padding: 25px;
+        background-color: #333;
+        color: #fff;
+        &.buy {
+            border-color: #333;
+            border-width: 2; 
+        }
+        &.sell {
+            border-width: 2; 
+            border-color: #333;
+        }
+        label {
+            font-size: 12px;
+        }
+        TextField {
+            margin: 5px;
+        }
+        Button {
+            height: 50px;
+
+        }
+    }
+
+    .market-tabs {
+        width: 100%;
+        .trade-btn {
+            width: 100%;
+            height: 80px;
+            color: #fff;
+            &.buy {
+                background-color: #70a800;
+            }
+            &.sell {
+                background-color: #ea0070;
+            }
+        }
+    }
+}
+
+.filter-stack-layout {
+    background-color: #ccc;
+    horizontal-align: right;
+    Button {
+        background-color: #ccc;
+        text-align: right;
+        color: #333;
+        height: 60px;
+        padding: 5px;
+        font-size: 30;
+        width: 20%;
+        margin-right: 10px;
+    }
+}
+
+.filter-text-field {
+    background-color: #ccc;
+    color: #333;
+    width: 75%;
+    height: 70px;
+}
+
+//Action bar
+ActionBar .action-bar-title {
+    horizontal-align: center;
+}

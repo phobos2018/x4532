@@ -1,0 +1,1 @@
+{"version":3,"file":"platform.js","sourceRoot":"","sources":["../../../../js/base/functions/platform.js"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAIb,MAAM,CAAC,OAAO,GAAG;IAEb,MAAM,EAAE,CAAC,OAAO,MAAM,KAAK,WAAW,CAAC;QACjC,CAAC,CAAC,CAAC,OAAO,iBAAiB,KAAK,WAAW,CAAC,IAAI,CAAC,IAAI,YAAY,iBAAiB,CAAC,CAAC;CAC7F,CAAA"}

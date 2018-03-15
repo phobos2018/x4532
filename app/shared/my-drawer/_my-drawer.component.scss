@@ -1,0 +1,87 @@
+// Import the theme’s variables. If you’re using a color scheme
+// other than “light”, switch the path to the alternative scheme,
+// for example '~nativescript-theme-core/scss/dark'.
+@import '~nativescript-theme-core/scss/dark';
+// Custom common variables
+@import '../../app-variables';
+
+// Drawer navigation custom styles
+$sidedrawer-header-image-size: 60;
+$sidedrawer-header-image-offset-top: 20;
+$sidedrawer-header-image-offset-bottom: 5;
+$sidedrawer-list-item-offset-left: 15;
+$sidedrawer-list-icon-offset: 5;
+$sidedrawer-list-icon-size: 20;
+
+
+.sidedrawer {
+    background-color: #444;
+    &.sidedrawer-left {
+        background-color: #333;
+        color: #fff;
+
+        .sidedrawer-header-image {
+            color: $background-dark;
+            height: $sidedrawer-header-image-size;
+            width: $sidedrawer-header-image-size;
+            font-size: $sidedrawer-header-image-size;
+            padding: 0;
+            margin-bottom: $sidedrawer-header-image-offset-bottom;
+            margin-top: $sidedrawer-header-image-offset-top;
+        }
+
+        .footnote {
+            color: rgba($ab-color, 0.5);
+        }
+    }
+
+    .sidedrawer-header {
+        background-color: #444;
+
+        .sidedrawer-header-brand {
+            color: $ab-color;
+        }
+    }
+
+    .sidedrawer-content {
+        height: 100%;
+        background-color: #333;
+        color: #fff;
+
+        ListView {
+            height: 100%;
+            background-color: #333;
+        }
+    }
+
+    .sidedrawer-list-item {
+        padding-left: $sidedrawer-list-item-offset-left;
+        background-color: #333;
+        color: #fff;
+
+        Label {
+            vertical-align: center;
+            color: #fff;
+        }
+
+        .fa {
+            width: $sidedrawer-list-icon-size;
+            margin-right: $sidedrawer-list-icon-offset;
+        }
+
+        &.selected {
+            background-color: $item-active-background;
+
+            Label {
+                color: $item-active-color;
+            }
+        }
+
+        &.sidedrawer-list-item-settings {
+            background-color: #333;
+            color: #fff;
+            border-top-width: 1px;
+            border-top-color: #777;
+        }
+    }
+}

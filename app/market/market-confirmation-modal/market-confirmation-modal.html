@@ -1,0 +1,17 @@
+<GridLayout class="market-confirmation-modal" backgroundColor="#888" columns="*" rows="auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto">
+    <Label [text]="'Type'" col="1" row="0"></Label>
+    <Label [text]="market.typeString" col="1" row="1"></Label>
+    <Label [text]="'Market'" col="1" row="2"></Label>
+    <Label [text]="market.MarketName" col="1" row="3"></Label>
+    <Label [text]="'Price'" col="1" row="4"></Label>
+    <TextField col="0" row="5" [text]="market.rate" #valuePrice class="confirmation-text-field"
+    autocorrect="false" autocapitalizationType="none"></TextField>
+    <Label [text]="'Amount'" col="1" row="6"></Label>
+    <TextField col="0" row="7" [text]="market.quantity" #valueAmount class="confirmation-text-field"
+    autocorrect="false" autocapitalizationType="none"></TextField>
+    <Label [text]="message" col="1" row="8"></Label>
+    <Label *ngIf="uuid" [text]="uuid" col="1" row="9"></Label>
+    
+    <Button *ngIf="!uuid && !message" text="Confirm" (tap)="processTransaction()" class="btn btn-primary" col="1" row="11"></Button>
+    <Button text="Close" (tap)="close()" class="btn btn-primary close-button" col="1" row="10"></Button>
+</GridLayout>
